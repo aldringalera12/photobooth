@@ -16,19 +16,19 @@ export default function BoothInstructions() {
 
   
   // Blinking cursor effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 530); // Blinking speed
-    
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCursorVisible(prev => !prev);
+  }, 530); // Blinking speed
+
+  return () => clearInterval(interval);
+}, [setCursorVisible]); // Add `setCursorVisible` to the dependency array
 
   useEffect(() => {
     // Get shots from URL query parameter or localStorage
     const shotsFromUrl = searchParams.get('shots');
     const shotsFromStorage = localStorage.getItem('selectedShots');
-    
+  
     if (shotsFromUrl) {
       setShots(parseInt(shotsFromUrl));
     } else if (shotsFromStorage) {
@@ -37,7 +37,7 @@ export default function BoothInstructions() {
       // Default to 1 shot if no selection found
       setShots(1);
     }
-  }, [searchParams]);
+  }, [searchParams, setShots]); // Add `setShots` to the dependency array
 
   const handleContinue = () => {
     if (instructionsRead) {

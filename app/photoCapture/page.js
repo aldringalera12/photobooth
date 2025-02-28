@@ -25,13 +25,13 @@ export default function PhotoCapture() {
 
   
   // Blinking cursor effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 530); // Blinking speed
-    
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCursorVisible(prev => !prev);
+  }, 530); // Blinking speed
+
+  return () => clearInterval(interval);
+}, [setCursorVisible]); // Add `setCursorVisible` to the dependency array
 
   // Filters configuration
   const filters = {
@@ -66,19 +66,19 @@ export default function PhotoCapture() {
   };
 
   // Retrieve number of shots from URL parameters
-  useEffect(() => {
-    const shotsFromUrl = searchParams.get("shots");
-    setShots(shotsFromUrl ? parseInt(shotsFromUrl) : 1);
-  }, [searchParams]);
+useEffect(() => {
+  const shotsFromUrl = searchParams.get("shots");
+  setShots(shotsFromUrl ? parseInt(shotsFromUrl) : 1);
+}, [searchParams, setShots]); // Add `setShots` to the dependency array
 
   // Check if all shots are captured to show the generate button
-  useEffect(() => {
-    if (capturedImages.length >= shots && shots > 0) {
-      setShowGenerateButton(true);
-    } else {
-      setShowGenerateButton(false);
-    }
-  }, [capturedImages, shots]);
+useEffect(() => {
+  if (capturedImages.length >= shots && shots > 0) {
+    setShowGenerateButton(true);
+  } else {
+    setShowGenerateButton(false);
+  }
+}, [capturedImages, shots, setShowGenerateButton]); // Add `setShowGenerateButton` to the dependency array
 
   // Countdown logic
   useEffect(() => {
@@ -587,7 +587,7 @@ export default function PhotoCapture() {
               <div className="grid grid-cols-2 gap-2">
                 {capturedImages.map((image, index) => (
                   <div key={index} className="relative group aspect-square rounded-lg overflow-hidden bg-white border border-gray-100">
-                    <Image  
+                    <ImageIcon 
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-full object-cover" 

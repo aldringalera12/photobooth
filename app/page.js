@@ -10,14 +10,13 @@ export default function Home() {
   const [showWatermark, setShowWatermark] = useState(false);
   
   // Blinking cursor effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 530); // Blinking speed
-    
-    return () => clearInterval(interval);
-  }, []);
-  
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCursorVisible(prev => !prev);
+  }, 530); // Blinking speed
+
+  return () => clearInterval(interval);
+}, [setCursorVisible]); // Add `setCursorVisible` to the dependency array
   const handleStartClick = () => {
     router.push('/booth'); // Navigates to the new booth selection page
   };

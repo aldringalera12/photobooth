@@ -14,13 +14,13 @@ export default function BoothSelection() {
   const [isLoading, setIsLoading] = useState(false);
   
   // Blinking cursor effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 530); // Blinking speed
-    
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCursorVisible(prev => !prev);
+  }, 530); // Blinking speed
+
+  return () => clearInterval(interval);
+}, [setCursorVisible]); // Add `setCursorVisible` to the dependency array
 
   // Watermark animation
   const watermarkVariants = {
@@ -29,13 +29,13 @@ export default function BoothSelection() {
   };
 
   // Check for existing selection when component mounts
-  useEffect(() => {
-    // Try to get any previously saved selection from localStorage
-    const savedShots = localStorage.getItem('selectedShots');
-    if (savedShots) {
-      setSelectedShots(parseInt(savedShots));
-    }
-  }, []);
+useEffect(() => {
+  // Try to get any previously saved selection from localStorage
+  const savedShots = localStorage.getItem('selectedShots');
+  if (savedShots) {
+    setSelectedShots(parseInt(savedShots));
+  }
+}, [setSelectedShots]); // Add `setSelectedShots` to the dependency array
 
   const toggleWatermark = () => {
     setShowWatermark(prev => !prev);

@@ -42,7 +42,7 @@ export default function BackgroundPage() {
   useEffect(() => {
     // Check if we're coming from the photo capture page
     const isComplete = searchParams.get("complete") === "true";
-    
+  
     if (isComplete) {
       try {
         // Retrieve the images from localStorage
@@ -73,7 +73,7 @@ export default function BackgroundPage() {
       // Redirect if no images are available
       router.push("/");
     }
-  }, [searchParams, router]);
+  }, [searchParams, router, setImages]); // Add `setImages` to the dependency array
 
   // Filter CSS styles - copied from PhotoCapture for consistent rendering
   const filterStyles = {
