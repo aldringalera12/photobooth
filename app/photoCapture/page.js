@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Camera, ArrowLeft, Sliders, RefreshCw, Droplet, Sun, Contrast, Clock, Zap, Mountain, Image as ImageIcon } from "lucide-react";
+import { Camera, ArrowLeft, Sliders, RefreshCw, Droplet, Sun, Contrast, Clock, Zap, Mountain, Image as LucideImage } from "lucide-react";
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 export default function PhotoCapture() {
   const webcamRef = useRef(null);
@@ -25,13 +24,13 @@ export default function PhotoCapture() {
 
   
   // Blinking cursor effect
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCursorVisible(prev => !prev);
-  }, 530); // Blinking speed
-
-  return () => clearInterval(interval);
-}, [setCursorVisible]); // Add `setCursorVisible` to the dependency array
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCursorVisible(prev => !prev);
+    }, 530); // Blinking speed
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Filters configuration
   const filters = {
@@ -66,19 +65,19 @@ useEffect(() => {
   };
 
   // Retrieve number of shots from URL parameters
-useEffect(() => {
-  const shotsFromUrl = searchParams.get("shots");
-  setShots(shotsFromUrl ? parseInt(shotsFromUrl) : 1);
-}, [searchParams, setShots]); // Add `setShots` to the dependency array
+  useEffect(() => {
+    const shotsFromUrl = searchParams.get("shots");
+    setShots(shotsFromUrl ? parseInt(shotsFromUrl) : 1);
+  }, [searchParams]);
 
   // Check if all shots are captured to show the generate button
-useEffect(() => {
-  if (capturedImages.length >= shots && shots > 0) {
-    setShowGenerateButton(true);
-  } else {
-    setShowGenerateButton(false);
-  }
-}, [capturedImages, shots, setShowGenerateButton]); // Add `setShowGenerateButton` to the dependency array
+  useEffect(() => {
+    if (capturedImages.length >= shots && shots > 0) {
+      setShowGenerateButton(true);
+    } else {
+      setShowGenerateButton(false);
+    }
+  }, [capturedImages, shots]);
 
   // Countdown logic
   useEffect(() => {
@@ -587,7 +586,7 @@ useEffect(() => {
               <div className="grid grid-cols-2 gap-2">
                 {capturedImages.map((image, index) => (
                   <div key={index} className="relative group aspect-square rounded-lg overflow-hidden bg-white border border-gray-100">
-                    <ImageIcon 
+                    <img 
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-full object-cover" 

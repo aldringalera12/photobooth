@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image as ImageIcon } from "lucide-react"; // Renamed Image to ImageIconimport html2canvas from 'html2canvas';
-import Image from 'next/image';
+import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image } from "lucide-react";
+import html2canvas from 'html2canvas';
 
 export default function BackgroundPage() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function BackgroundPage() {
   useEffect(() => {
     // Check if we're coming from the photo capture page
     const isComplete = searchParams.get("complete") === "true";
-  
+    
     if (isComplete) {
       try {
         // Retrieve the images from localStorage
@@ -73,7 +73,7 @@ export default function BackgroundPage() {
       // Redirect if no images are available
       router.push("/");
     }
-  }, [searchParams, router, setImages]); // Add `setImages` to the dependency array
+  }, [searchParams, router]);
 
   // Filter CSS styles - copied from PhotoCapture for consistent rendering
   const filterStyles = {
@@ -304,7 +304,7 @@ export default function BackgroundPage() {
                 onClick={() => setActiveTab("extras")}
                 className={`flex items-center px-3 py-1.5 text-xs ${activeTab === "extras" ? "text-blue-500 border-b border-blue-500" : "text-gray-500"}`}
               >
-                <ImageIcon size={14} className="mr-1" /> Extras
+                <Image size={14} className="mr-1" /> Extras
               </button>
             </div>
             
@@ -537,7 +537,7 @@ export default function BackgroundPage() {
                       border: `${borderWidth}px solid ${borderColor}`
                     }}
                   >
-                    <ImageIcon 
+                    <img 
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-auto"
