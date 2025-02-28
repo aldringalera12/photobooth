@@ -2,8 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image } from "lucide-react";
-import html2canvas from 'html2canvas';
+import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image as ImageIcon } from "lucide-react"; // Renamed Image to ImageIconimport html2canvas from 'html2canvas';
 import Image from 'next/image';
 
 export default function BackgroundPage() {
@@ -305,7 +304,7 @@ export default function BackgroundPage() {
                 onClick={() => setActiveTab("extras")}
                 className={`flex items-center px-3 py-1.5 text-xs ${activeTab === "extras" ? "text-blue-500 border-b border-blue-500" : "text-gray-500"}`}
               >
-                <Image size={14} className="mr-1" /> Extras
+                <ImageIcon size={14} className="mr-1" /> Extras
               </button>
             </div>
             
@@ -538,7 +537,7 @@ export default function BackgroundPage() {
                       border: `${borderWidth}px solid ${borderColor}`
                     }}
                   >
-                    <Image 
+                    <ImageIcon 
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-auto"

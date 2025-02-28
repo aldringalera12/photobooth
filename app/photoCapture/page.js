@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Camera, ArrowLeft, Sliders, RefreshCw, Droplet, Sun, Contrast, Clock, Zap, Mountain, Image as LucideImage } from "lucide-react";
+import { Camera, ArrowLeft, Sliders, RefreshCw, Droplet, Sun, Contrast, Clock, Zap, Mountain, Image as ImageIcon } from "lucide-react";
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
