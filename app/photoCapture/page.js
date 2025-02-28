@@ -5,6 +5,7 @@ import Webcam from "react-webcam";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Camera, ArrowLeft, Sliders, RefreshCw, Droplet, Sun, Contrast, Clock, Zap, Mountain, Image as LucideImage } from "lucide-react";
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function PhotoCapture() {
   const webcamRef = useRef(null);
