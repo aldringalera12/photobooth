@@ -537,7 +537,7 @@ export default function BackgroundPage() {
                       border: `${borderWidth}px solid ${borderColor}`
                     }}
                   >
-                    <img 
+                    <Image 
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-auto"

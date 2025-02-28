@@ -586,7 +586,7 @@ export default function PhotoCapture() {
               <div className="grid grid-cols-2 gap-2">
                 {capturedImages.map((image, index) => (
                   <div key={index} className="relative group aspect-square rounded-lg overflow-hidden bg-white border border-gray-100">
-                    <img 
+                    <Image  
                       src={image.src} 
                       alt={`Photo ${index + 1}`} 
                       className="w-full h-full object-cover" 
