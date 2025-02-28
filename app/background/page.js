@@ -1,8 +1,9 @@
 "use client";
-import { useSearchParams } from 'next/navigation';
+
+
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image } from "lucide-react";
 import html2canvas from 'html2canvas';
 
