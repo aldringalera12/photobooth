@@ -1,14 +1,16 @@
 "use client";
 
-
-import { useRouter, useSearchParams } from "next/navigation";
-
-import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { ArrowLeft, Download, Share, Calendar, Plus, Sliders, Move, Trash, Palette, Maximize, Minimize, Image } from "lucide-react";
 import html2canvas from 'html2canvas';
+import NextImage from "next/image"; // Import Next.js Image component
 
-export default function BackgroundPage() {
+// Create a client component that uses useSearchParams
+function BackgroundContent() {
   const router = useRouter();
+  // Import useSearchParams inside this component
+  const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
   const [images, setImages] = useState([]);
   const [cardColor, setCardColor] = useState("#f5a9b8"); // Default pink for the card background
@@ -239,6 +241,7 @@ export default function BackgroundPage() {
         <div 
           className="w-12 h-12 rounded-lg border border-gray-200" 
           style={{ backgroundColor: color }}
+          aria-label={`Color preview: ${color}`}
         ></div>
         <div className="flex-1">
           <input 
@@ -246,6 +249,7 @@ export default function BackgroundPage() {
             value={color}
             onChange={(e) => onChange(e.target.value)}
             className="w-full h-8 cursor-pointer rounded"
+            aria-label={`${label} color picker`}
           />
         </div>
       </div>
@@ -306,7 +310,7 @@ export default function BackgroundPage() {
                 onClick={() => setActiveTab("extras")}
                 className={`flex items-center px-3 py-1.5 text-xs ${activeTab === "extras" ? "text-blue-500 border-b border-blue-500" : "text-gray-500"}`}
               >
-                <Image size={14} className="mr-1" /> Extras
+                <Image size={14} className="mr-1" alt="" /> Extras
               </button>
             </div>
             
@@ -335,6 +339,7 @@ export default function BackgroundPage() {
                             backgroundColor: color,
                             borderColor: color === "#ffffff" ? "#e0e0e0" : "white"
                           }}
+                          aria-label={`Color preset: ${color}`}
                         ></button>
                       ))}
                     </div>
@@ -452,6 +457,7 @@ export default function BackgroundPage() {
                       <div 
                         className="w-6 h-6 rounded-lg border border-gray-200"
                         style={{ backgroundColor: dateFontColor }}
+                        aria-label={`Date font color preview: ${dateFontColor}`}
                       ></div>
                       {/* Color Input */}
                       <input 
@@ -459,6 +465,7 @@ export default function BackgroundPage() {
                         value={dateFontColor}
                         onChange={(e) => setDateFontColor(e.target.value)}
                         className="w-full h-6 cursor-pointer rounded"
+                        aria-label="Date font color picker"
                       />
                     </div>
                     {/* Preset Colors */}
@@ -472,6 +479,7 @@ export default function BackgroundPage() {
                             backgroundColor: color,
                             borderColor: color === "#ffffff" ? "#e0e0e0" : "white"
                           }}
+                          aria-label={`Font color preset: ${color}`}
                         ></button>
                       ))}
                     </div>
@@ -539,14 +547,18 @@ export default function BackgroundPage() {
                       border: `${borderWidth}px solid ${borderColor}`
                     }}
                   >
-                    <img 
+                    {/* Using Next.js Image component instead of img for performance optimization */}
+                    <NextImage 
                       src={image.src} 
-                      alt={`Photo ${index + 1}`} 
+                      alt={`Photo ${index + 1}`}
+                      width={400}
+                      height={400}
                       className="w-full h-auto"
                       style={{
                         ...filterStyles[image.filter],
                         transform: "scaleX(-1)" // Keep consistent with camera view
                       }}
+                      data-filter={image.filter}
                     />
                   </div>
                 ))}
@@ -572,5 +584,14 @@ export default function BackgroundPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+// Define the main export component with Suspense boundary
+export default function BackgroundPage() {
+  return (
+    <Suspense fallback={<div className="p-4">Loading...</div>}>
+      <BackgroundContent />
+    </Suspense>
   );
 }
